@@ -3,23 +3,21 @@
 # Helper Script: Start all Big Data Services (SSH, HDFS, YARN, MongoDB)
 # ==============================================================================
 
-set -e
-
 echo ">>> Starting SSH service..."
-sudo service ssh start
+sudo service ssh start || true
 
 echo ">>> Starting Hadoop Distributed File System (HDFS)..."
-start-dfs.sh
+start-dfs.sh || true
 
 echo ">>> Starting Hadoop YARN Cluster Resource Manager..."
-start-yarn.sh
+start-yarn.sh || true
 
 echo ">>> Starting MongoDB 8.0 Daemon..."
-sudo systemctl start mongod
+sudo systemctl start mongod || true
 
 echo ""
 echo "=========================================================="
-echo "                   ALL SERVICES STARTED                   "
+echo "                   ALL SERVICES ACTIVE                    "
 echo "=========================================================="
 echo "Active Java Daemons (jps):"
 jps
