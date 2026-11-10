@@ -1,0 +1,14 @@
+# archives and temporary files
+*.zip
+*:Zone.Identifier
+*Zone.Identifier*
+
+# generated pipeline data
+exports/
+last_export.txt
+spark_errors.log
+spark-warehouse/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
