@@ -7,10 +7,11 @@ echo ">>> Starting SSH service..."
 sudo service ssh start || true
 
 echo ">>> Starting Hadoop Distributed File System (HDFS)..."
-start-dfs.sh || true
+nohup start-dfs.sh </dev/null >/tmp/hdfs-start.log 2>&1 || true
 
 echo ">>> Starting Hadoop YARN Cluster Resource Manager..."
-start-yarn.sh || true
+nohup start-yarn.sh </dev/null >/tmp/yarn-start.log 2>&1 || true
+sleep 4
 
 echo ">>> Starting MongoDB 8.0 Daemon..."
 sudo systemctl start mongod || true

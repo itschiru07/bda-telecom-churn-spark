@@ -1,0 +1,143 @@
+
+===== 1. OVERVIEW =====
+customers	churned	churn_rate_pct	days_of_data	events_processed
+3333	483	14.49	30	494714
+
+===== 2. CHURNED vs ACTIVE CUSTOMERS (monthly averages) =====
+feature	active_avg	churned_avg	diff_pct
+account_weeks	100.79	102.66	1.9
+contract_renewal	0.93	0.72	-23.4
+data_plan	0.3	0.17	-43.9
+call_minutes	174.35	206.22	18.3
+num_calls	100.03	101.17	1.1
+avg_call_duration	1.82	2.15	17.7
+roaming_minutes	10.18	10.76	5.7
+data_gb	0.85	0.55	-35.3
+num_recharges	4.5	4.67	3.9
+recharge_amount	65.75	73.07	11.1
+topup_amount	9.98	10.46	4.9
+days_since_recharge	5.87	5.41	-7.9
+complaints	1.46	2.29	56.5
+
+===== 3a. CHURN RATE BY COMPLAINTS PER MONTH =====
+complaints	customers	churned	churn_rate_pct
+0	1205	154	12.8
+1	731	74	10.1
+2	574	73	12.7
+3	378	49	13.0
+4	207	43	20.8
+5+	238	90	37.8
+
+===== 3b. CHURN RATE BY SERVICE PLAN =====
+plan	customers	churned	churn_rate_pct
+Data plan / Not renewed	92	36	39.1
+Data plan / Renewed	830	44	5.3
+No data plan / Not renewed	231	101	43.7
+No data plan / Renewed	2180	302	13.9
+
+===== 3c. CHURN RATE BY CALL MINUTES =====
+call_minutes_band	customers	churned	churn_rate_pct
+1) Low (<= 139.2)	822	101	12.3
+2) Medium-low (<= 176.4)	830	78	9.4
+3) Medium-high (<= 216.2)	845	78	9.2
+4) High (> 216.2)	836	226	27.0
+
+===== 3d. CHURN RATE BY RECHARGE AMOUNT =====
+recharge_band	customers	churned	churn_rate_pct
+1) Low (<= 39.6)	829	82	9.9
+2) Medium-low (<= 61.1)	826	128	15.5
+3) Medium-high (<= 86.9)	836	129	15.4
+4) High (> 86.9)	842	144	17.1
+
+===== 3e. CHURN RATE BY DATA USAGE (GB) =====
+data_band	customers	churned	churn_rate_pct
+1) Low (<= 0.0)	1813	322	17.8
+3) Medium-high (<= 1.6)	668	85	12.7
+4) High (> 1.6)	852	76	8.9
+
+===== 3f. CHURN RATE BY DAYS SINCE LAST RECHARGE =====
+recharge_recency_band	customers	churned	churn_rate_pct
+1) Low (<= 1.0)	937	148	15.8
+2) Medium-low (<= 4.0)	889	122	13.7
+3) Medium-high (<= 8.0)	696	106	15.2
+4) High (> 8.0)	811	107	13.2
+
+===== 4a. RANDOM FOREST MODEL QUALITY (on 20% test data) =====
+auc	accuracy_pct	churners_caught_pct
+0.808	84.4	59.8
+
+===== 4b. TOP CHURN INDICATORS (feature importance) =====
+indicator	importance_pct
+call_minutes	20.59
+contract_renewal	19.41
+complaints	15.79
+avg_call_duration	9.9
+data_gb	6.29
+recharge_amount	5.05
+data_plan	4.17
+roaming_minutes	4.13
+num_calls	3.73
+account_weeks	3.42
+topup_amount	3.06
+num_recharges	2.29
+days_since_recharge	2.15
+
+===== 5a. ACTIVE CUSTOMERS AT RISK =====
+active_customers	risk_50pct_or_more
+2850	289
+
+===== 5b. TOP 20 HIGH-RISK ACTIVE CUSTOMERS =====
+customerId	risk_pct	complaints	call_minutes	data_gb	recharge_amount	days_since_recharge	contract_renewal	data_plan
+C2115	84.5	3.0	278.38	0.0	93.62	4.0	1	0
+C0265	82.9	1.0	328.43	0.0	141.59	0.0	1	0
+C1744	82.2	0.0	293.78	0.0	111.74	5.0	1	0
+C0448	80.4	3.0	297.93	0.0	96.64	8.0	1	0
+C3181	79.9	0.0	157.55	0.0	58.12	1.0	0	0
+C1429	79.6	1.0	203.61	0.0	76.57	2.0	0	0
+C3173	78.8	0.0	265.97	0.0	138.67	0.0	1	0
+C1084	78.5	3.0	253.91	0.0	74.18	0.0	0	0
+C0569	77.6	1.0	302.68	0.0	51.07	0.0	1	0
+C0805	76.8	0.0	288.45	0.0	86.61	4.0	1	0
+C1198	76.7	3.0	256.67	0.0	106.47	0.0	1	0
+C1249	76.5	0.0	171.48	0.37	74.34	1.0	0	0
+C1507	76.5	1.0	301.45	0.36	99.46	4.0	1	0
+C0781	75.4	3.0	328.45	0.0	80.47	2.0	0	0
+C0707	75.0	2.0	271.49	0.0	60.53	2.0	1	0
+C2989	74.7	3.0	286.57	0.0	69.93	5.0	1	0
+C2977	74.7	0.0	146.0	0.0	84.6	0.0	0	0
+C1100	74.5	1.0	296.88	0.0	60.17	9.0	1	0
+C1016	74.3	0.0	243.36	0.0	131.48	8.0	1	0
+C2481	73.3	5.0	162.9	0.32	93.75	0.0	0	0
+
+===== 6. ACTIVITY PER SIMULATED DAY =====
+sim_day	events	complaints	recharge_amount
+1	16429	171	7754.05
+2	16514	175	7236.57
+3	16500	173	6981.12
+4	16271	176	7240.89
+5	16533	149	7218.92
+6	16601	175	7270.96
+7	16345	169	7378.47
+8	16421	177	7165.1
+9	16558	178	7648.06
+10	16587	181	7566.75
+11	16663	171	7604.04
+12	16456	198	7530.61
+13	16530	187	7700.69
+14	16481	168	7449.58
+15	16583	174	7631.91
+16	16528	173	7114.82
+17	16204	175	7557.43
+18	16442	162	7356.08
+19	16576	173	7689.14
+20	16554	176	7345.99
+21	16530	171	7188.73
+22	16527	178	7775.22
+23	16483	199	7308.64
+24	16445	174	7056.51
+25	16643	188	6945.54
+26	16589	168	7389.13
+27	16399	170	7457.09
+28	16484	183	7629.88
+29	16424	169	7489.57
+30	16414	201	7990.55
